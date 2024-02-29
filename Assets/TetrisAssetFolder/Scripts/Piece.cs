@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Piece : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Piece : MonoBehaviour
     private float stepTime;
     private float moveTime;
     private float lockTime;
+
+    public string controlString;
 
     public void Initialize(Board board, Vector3Int position, TetriminoData data)
     {
@@ -45,7 +48,7 @@ public class Piece : MonoBehaviour
         // We use a timer to allow the player to make adjustments to the piece
         // before it locks in place
         lockTime += Time.deltaTime;
-
+        
         // Handle rotation
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -69,6 +72,36 @@ public class Piece : MonoBehaviour
             HandleMoveInputs();
         }
 
+        switch (controlString)
+        {
+            case "Right":
+                HandleMoveInputsButtons(1);
+                controlString = "";
+                break;
+            case "Left":
+                HandleMoveInputsButtons(2);
+                controlString = "";
+                break;
+            case "Down":
+                HandleMoveInputsButtons(3);
+                controlString = "";
+                break;
+            case "HardDrop":
+                HandleMoveInputsButtons(4);
+                controlString = "";
+                break;
+            case "RLeft":
+                HandleMoveInputsButtons(5);
+                controlString = "";
+                break;
+            case "RRight":
+                HandleMoveInputsButtons(6);
+                controlString = "";
+                break;
+            default:
+                break;
+        }
+
         // Advance the piece to the next row every x seconds
         if (Time.time > stepTime)
         {
@@ -80,15 +113,15 @@ public class Piece : MonoBehaviour
 
     public void HandleMoveInputsButtons(int intHandler)
     {
+
+        Debug.Log("More Debug");
         switch (intHandler)
         {
             case 1:
                 Move(Vector2Int.right);
-                Debug.Log("Moving to right");
                 break;
             case 2:
                 Move(Vector2Int.left);
-                Debug.Log("Moving to left");
                 break;
             case 3:
                 if (Move(Vector2Int.down))
@@ -97,6 +130,15 @@ public class Piece : MonoBehaviour
                     stepTime = Time.time + stepDelay;
                     Debug.Log("Moving to down");
                 }
+                break;
+            case 4:
+                HardDrop();
+                break;
+            case 5:
+                Rotate(-1);
+                break;
+            case 6:
+                Rotate(1);
                 break;
         }
     }
@@ -160,6 +202,7 @@ public class Piece : MonoBehaviour
         Vector3Int newPosition = position;
         newPosition.x += translation.x;
         newPosition.y += translation.y;
+        Debug.Log("flag movement");
 
         bool valid = board.IsValidPosition(this, newPosition);
 
@@ -179,7 +222,7 @@ public class Piece : MonoBehaviour
         // Store the current rotation in case the rotation fails
         // and we need to revert
         int originalRotation = rotationIndex;
-
+        Debug.Log("Rotation");
         // Rotate all of the cells using a rotation matrix
         rotationIndex = Wrap(rotationIndex + direction, 0, 4);
         ApplyRotationMatrix(direction);
