@@ -78,6 +78,29 @@ public class Piece : MonoBehaviour
         board.Set(this);
     }
 
+    public void HandleMoveInputsButtons(int intHandler)
+    {
+        switch (intHandler)
+        {
+            case 1:
+                Move(Vector2Int.right);
+                Debug.Log("Moving to right");
+                break;
+            case 2:
+                Move(Vector2Int.left);
+                Debug.Log("Moving to left");
+                break;
+            case 3:
+                if (Move(Vector2Int.down))
+                {
+                    // Update the step time to prevent double movement
+                    stepTime = Time.time + stepDelay;
+                    Debug.Log("Moving to down");
+                }
+                break;
+        }
+    }
+
     private void HandleMoveInputs()
     {
         // Soft drop movement
@@ -101,7 +124,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    private void Step()
+    public void Step()
     {
         stepTime = Time.time + stepDelay;
 
@@ -115,7 +138,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    private void HardDrop()
+    public void HardDrop()
     {
         while (Move(Vector2Int.down))
         {
@@ -151,7 +174,7 @@ public class Piece : MonoBehaviour
         return valid;
     }
 
-    private void Rotate(int direction)
+    public void Rotate(int direction)
     {
         // Store the current rotation in case the rotation fails
         // and we need to revert
