@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
@@ -9,6 +11,17 @@ public class Board : MonoBehaviour
     public TetriminoData[] tetrominoes;
     public Vector2Int boardSize = new Vector2Int(10, 20);
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
+
+    public int scoreLine1 = 100;
+    public int scoreLine2 = 300;
+    public int scoreLine3 = 500;
+    public int scoreLine4 = 800;
+    
+    private int currentScore = 0;
+    
+    private int numberOfLine = 0;
+        
+    public TMP_Text scoreText;
 
     public RectInt Bounds
     {
@@ -34,7 +47,44 @@ public class Board : MonoBehaviour
     {
         SpawnPiece();
     }
-
+    void Update()
+    {
+    
+        updateScore();
+        updateScoreText();
+                
+    }
+        
+    public void updateScoreText()
+    {
+        scoreText.text = "Score: " + currentScore.ToString();
+    }
+    
+    public void updateScore()
+    {
+        if (numberOfLine > 0){
+            if (numberOfLine == 1)
+            {
+                currentScore += scoreLine1;
+            }
+            else if (numberOfLine == 2)
+            { 
+                currentScore += scoreLine2;
+            }
+            else if (numberOfLine == 3)
+            {
+                currentScore += scoreLine3;
+            }
+            else if (numberOfLine == 4)
+            {
+                currentScore += scoreLine4;
+            }
+    
+            numberOfLine = 0;
+        }
+            
+    }
+    
     public void SpawnPiece()
     {
         int random = Random.Range(0, tetrominoes.Length);
@@ -55,6 +105,8 @@ public class Board : MonoBehaviour
     public void GameOver()
     {
         tilemap.ClearAllTiles();
+        
+        currentScore = 0;
 
         // Do anything else you want on game over here..
     }
