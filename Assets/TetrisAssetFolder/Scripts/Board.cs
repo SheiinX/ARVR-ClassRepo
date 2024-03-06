@@ -9,7 +9,8 @@ public class Board : MonoBehaviour
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
 
-    [SerializeField]public GameObject gameover;
+    [SerializeField]public GameObject gameover; 
+    [SerializeField]public GameObject board;
     
 
     public TetriminoData[] tetrominoes;
@@ -115,6 +116,7 @@ public class Board : MonoBehaviour
         currentScore = 0;
 
         gameover.SetActive(true);
+        board.SetActive(false);
         
         // Do anything else you want on game over here..
     }
