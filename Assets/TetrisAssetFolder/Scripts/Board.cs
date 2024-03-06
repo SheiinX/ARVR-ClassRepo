@@ -10,7 +10,7 @@ public class Board : MonoBehaviour
     public Piece activePiece { get; private set; }
 
     [SerializeField]public GameObject gameover;
-    [SerializeField]public GameObject botones;
+    
 
     public TetriminoData[] tetrominoes;
     public Vector2Int boardSize = new Vector2Int(10, 20);
@@ -115,7 +115,7 @@ public class Board : MonoBehaviour
         currentScore = 0;
 
         gameover.SetActive(true);
-        botones.SetActive(false);
+        
         // Do anything else you want on game over here..
     }
 
