@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -7,6 +8,9 @@ public class Board : MonoBehaviour
 {
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
+
+    [SerializeField]public GameObject gameover;
+    [SerializeField]public GameObject botones;
 
     public TetriminoData[] tetrominoes;
     public Vector2Int boardSize = new Vector2Int(10, 20);
@@ -46,6 +50,7 @@ public class Board : MonoBehaviour
     private void Start()
     {
         SpawnPiece();
+        gameover.SetActive(false);
     }
     void Update()
     {
@@ -104,10 +109,13 @@ public class Board : MonoBehaviour
 
     public void GameOver()
     {
+
         tilemap.ClearAllTiles();
         
         currentScore = 0;
 
+        gameover.SetActive(true);
+        botones.SetActive(false);
         // Do anything else you want on game over here..
     }
 
@@ -218,5 +226,10 @@ public class Board : MonoBehaviour
 
             row++;
         }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("TetrisButBad");
     }
 }
