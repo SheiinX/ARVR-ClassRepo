@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SamplesResources/Scenes/0-Main.unity
-    guid: a09cb257d566c489595b16ab37547666
+    path: Assets/TetrisAssetFolder/Scenes/TetrisButBad.unity
+    guid: 7ffa11f3d7840274e82c60582b60bfc9
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: d3ad7969660aef04a9668ffc29cd4952,
       type: 2}
