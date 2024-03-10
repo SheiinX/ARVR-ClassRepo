@@ -114,6 +114,7 @@ public class Board : MonoBehaviour
         tilemap.ClearAllTiles();
         
         currentScore = 0;
+        
 
         gameover.SetActive(true);
         board.SetActive(false);
@@ -199,6 +200,8 @@ public class Board : MonoBehaviour
                 return false;
             }
         }
+        
+        numberOfLine++;
 
         return true;
     }
