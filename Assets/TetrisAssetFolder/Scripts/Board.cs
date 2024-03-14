@@ -235,6 +235,13 @@ public class Board : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("TetrisButBad");
+        
+        tilemap.ClearAllTiles();
+        
+        currentScore = 0;
+        
+        gameover.SetActive(false);
+        
+        board.SetActive(true);
     }
 }
